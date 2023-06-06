@@ -36,6 +36,7 @@ public class PreparedRemover {
             return;
         }
 
+        // TODO: check for "strange" characters against SQL injection attack
         String name = args[0];
         // TODO: robustness, try for NumberFormatException
         int location = Integer.valueOf(args[1]);
