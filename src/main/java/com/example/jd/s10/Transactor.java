@@ -72,7 +72,6 @@ public class Transactor {
     }
 
     public void insertCoder(String first, String last, int phone, double salary) {
-        DataSource ds = Config.getDataSource();
         try (Connection conn = ds.getConnection()) {
             conn.setAutoCommit(false);
 
