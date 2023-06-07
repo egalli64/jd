@@ -21,13 +21,17 @@ public class CoderDao implements Dao<Coder> {
             SELECT employee_id, first_name, last_name, phone, hired, salary
             FROM employee
             WHERE department_id = 6 AND employee_id = ?""";
+    private static final String GET_BY_PHONE = """
+            SELECT employee_id, first_name, last_name, phone, hired, salary
+            FROM employee
+            WHERE department_id = 6 AND phone = ?""";
     private static final String GET_ALL = """
             SELECT employee_id, first_name, last_name, phone, hired, salary
             FROM employee
             WHERE department_id = 6""";
     private static final String INSERT = """
-            INSERT INTO employee (employee_id, first_name, last_name, phone, hired, job_id, salary, manager_id, department_id) VALUES
-                (?, ?, ?, ?, ?, 15, ?, 103, 6)""";
+            INSERT INTO employee (first_name, last_name, phone, hired, job_id, salary, manager_id, department_id) VALUES
+                (?, ?, ?, ?, 15, ?, 103, 6)""";
     private static final String UPDATE_BY_ID = """
             UPDATE employee
             SET first_name = ?, last_name = ?, phone = ?, hired = ?, salary = ?
@@ -74,6 +78,24 @@ public class CoderDao implements Dao<Coder> {
         return Optional.empty();
     }
 
+    public Optional<Coder> getByPhone(int phone) {
+        try (Connection conn = Connector.getConnection(); //
+                PreparedStatement ps = conn.prepareStatement(GET_BY_PHONE)) {
+            ps.setLong(1, phone);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Coder my = new Coder(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4),
+                            rs.getObject(5, LocalDate.class), rs.getDouble(6));
+                    return Optional.of(my);
+                }
+            }
+        } catch (SQLException se) {
+            log.error("Can't get coder with phone" + phone, se);
+        }
+
+        return Optional.empty();
+    }
+
     public Coder legacyGet(long id) {
         try (Connection conn = Connector.getConnection(); //
                 PreparedStatement ps = conn.prepareStatement(GET_BY_PK)) {
@@ -91,16 +113,32 @@ public class CoderDao implements Dao<Coder> {
         return null;
     }
 
+    public Coder legacyGetByPhone(int phone) {
+        try (Connection conn = Connector.getConnection(); //
+                PreparedStatement ps = conn.prepareStatement(GET_BY_PHONE)) {
+            ps.setLong(1, phone);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Coder(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4),
+                            rs.getObject(5, LocalDate.class), rs.getDouble(6));
+                }
+            }
+        } catch (SQLException se) {
+            log.error("Can't get coder with phone" + phone, se);
+        }
+
+        return null;
+    }
+
     @Override
     public void save(Coder coder) {
         try (Connection conn = Connector.getConnection(); //
                 PreparedStatement ps = conn.prepareStatement(INSERT)) {
-            ps.setLong(1, coder.getId());
-            ps.setString(2, coder.getFirstName());
-            ps.setString(3, coder.getLastName());
-            ps.setInt(4, coder.getPhone());
-            ps.setObject(5, coder.getHired());
-            ps.setDouble(6, coder.getSalary());
+            ps.setString(1, coder.getFirstName());
+            ps.setString(2, coder.getLastName());
+            ps.setInt(3, coder.getPhone());
+            ps.setObject(4, coder.getHired());
+            ps.setDouble(5, coder.getSalary());
             ps.executeUpdate();
         } catch (SQLException se) {
             log.error("Can't save coder " + coder.getId(), se);

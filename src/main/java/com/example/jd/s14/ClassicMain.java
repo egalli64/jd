@@ -23,38 +23,40 @@ public class ClassicMain {
         CoderDao cd = new CoderDao();
 
         // create a new coder ...
-        final long id = 501L;
-        cd.save(new Coder(id, "Tom", "Jones", 99_999, 2_000));
+        int phone = 99_999;
+        Coder tom = new Coder("Tom", "Jones", phone, 2_000);
+        cd.save(tom);
 
         // ... then get it
-        Coder fiveOone = cd.legacyGet(id);
-        if (fiveOone == null) {
-            log.error("Unexpected! Can't get the coder " + id);
+        Coder fiveNineCoder = cd.legacyGetByPhone(phone);
+        if (fiveNineCoder == null) {
+            log.error("Unexpected! Can't get the coder with phone " + phone);
             System.out.println("Coder has not been saved correctly!");
             return;
         } else {
-            System.out.println("Get: " + fiveOone);
+            System.out.println("Get coder by phone: " + fiveNineCoder);
         }
 
         // update coder salary
-        fiveOone.setSalary(fiveOone.getSalary() * 2);
-        cd.update(fiveOone);
-        System.out.println("Update salary: " + fiveOone);
+        fiveNineCoder.setSalary(fiveNineCoder.getSalary() * 2);
+        cd.update(fiveNineCoder);
+        System.out.println("Update salary: " + fiveNineCoder);
 
         // rename the coder
-        fiveOone.setLastName("Hollz");
-        cd.update(fiveOone);
-        System.out.println("Update renamed: " + fiveOone);
+        fiveNineCoder.setLastName("Hollz");
+        cd.update(fiveNineCoder);
+        System.out.println("Update renamed: " + fiveNineCoder);
 
         // delete the coder
+        long id = fiveNineCoder.getId();
         cd.delete(id);
 
         // ensure the coder is actually removed from the database
-        fiveOone = cd.legacyGet(id);
-        if (fiveOone == null) {
-            System.out.println("Coder correctly removed");
+        fiveNineCoder = cd.legacyGet(id);
+        if (fiveNineCoder == null) {
+            System.out.printf("Coder %d correctly removed%n", id);
         } else {
-            System.out.println("Unexpected! Coder is still alive: " + fiveOone);
+            System.out.println("Unexpected! Coder is still alive: " + fiveNineCoder);
         }
 
         System.out.println("All coders");

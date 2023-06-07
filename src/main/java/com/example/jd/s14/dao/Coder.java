@@ -18,8 +18,12 @@ public class Coder {
     public Coder() {
     }
 
-    public Coder(long id, String firstName, String lastName, int phone, double salary) {
-        this(id, firstName, lastName, phone, LocalDate.now(), salary);
+    public Coder(String firstName, String lastName, int phone, double salary) {
+        this(firstName, lastName, phone, LocalDate.now(), salary);
+    }
+
+    public Coder(String firstName, String lastName, int phone, LocalDate hired, double salary) {
+        this(0, firstName, lastName, phone, LocalDate.now(), salary);
     }
 
     public Coder(long id, String firstName, String lastName, int phone, LocalDate hired, double salary) {
