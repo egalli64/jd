@@ -7,8 +7,8 @@ package com.example.jd.s14;
 
 import java.util.Optional;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.example.jd.s14.dao.Coder;
 import com.example.jd.s14.dao.CoderDao;
@@ -17,7 +17,7 @@ import com.example.jd.s14.dao.CoderDao;
  * Sample application using DAO
  */
 public class Main {
-    private static final Logger log = LogManager.getLogger(Main.class);
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
         CoderDao dao = new CoderDao();

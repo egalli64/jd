@@ -11,8 +11,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.example.jd.Config;
 
@@ -20,7 +20,7 @@ import com.example.jd.Config;
  * PreparedStatement example
  */
 public class PreparedRemover {
-    private static final Logger log = LogManager.getLogger(PreparedRemover.class);
+    private static final Logger log = LoggerFactory.getLogger(PreparedRemover.class);
     private static final String DELETE_SERVICE_BY_NAME = """
             DELETE FROM service
             WHERE name = ? and location_id = ?""";
@@ -51,7 +51,7 @@ public class PreparedRemover {
             int lines = stmt.executeUpdate();
             System.out.printf("Delete executed, %d lines affected%n", lines);
         } catch (SQLException se) {
-            log.fatal("Can't remove", se);
+            log.error("Can't remove", se);
         }
     }
 }

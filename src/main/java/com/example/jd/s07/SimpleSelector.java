@@ -12,8 +12,8 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.example.jd.Config;
 
@@ -21,7 +21,7 @@ import com.example.jd.Config;
  * ResultSet example
  */
 public class SimpleSelector {
-    private static final Logger log = LogManager.getLogger(SimpleSelector.class);
+    private static final Logger log = LoggerFactory.getLogger(SimpleSelector.class);
 
     private static final String GET_CODERS = """
             SELECT employee_id, first_name, last_name
@@ -52,7 +52,7 @@ public class SimpleSelector {
             }
             log.debug("Done");
         } catch (SQLException se) {
-            log.fatal("Can't get coders", se);
+            log.error("Can't get coders", se);
         }
     }
 }

@@ -11,8 +11,8 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.example.jd.Config;
 
@@ -20,7 +20,7 @@ import com.example.jd.Config;
  * A raw hron service inserter
  */
 public class InserterExercise {
-    private static final Logger log = LogManager.getLogger(InserterExercise.class);
+    private static final Logger log = LoggerFactory.getLogger(InserterExercise.class);
 
     // TODO: SQL code for insert
 //    private static final String INSERT_SERVICE_BY_NAME_AND_LOCATION = "";
@@ -36,7 +36,7 @@ public class InserterExercise {
                 Statement stmt = conn.createStatement()) {
             // TODO: execute statement
         } catch (SQLException se) {
-            log.fatal("Can't insert", se);
+            log.error("Can't insert", se);
         }
     }
 }

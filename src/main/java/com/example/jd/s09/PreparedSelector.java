@@ -5,23 +5,26 @@
  */
 package com.example.jd.s09;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.example.jd.Config;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.example.jd.Config;
+
 /**
  * From PreparedStatement to ResultSet to List of JavaBean
  */
 public class PreparedSelector {
-    private static final Logger log = LogManager.getLogger(PreparedSelector.class);
+    private static final Logger log = LoggerFactory.getLogger(PreparedSelector.class);
 
     private static final String GET_CODERS_BY_SALARY = """
             SELECT e.first_name, e.last_name, e.hired, e.salary
@@ -62,7 +65,7 @@ public class PreparedSelector {
                 }
             }
 
-            log.debug(result);
+            log.debug(result.toString());
             return result;
         }
     }
@@ -84,7 +87,7 @@ public class PreparedSelector {
                 }
             }
 
-            log.debug(result);
+            log.debug(result.toString());
             return result;
         }
     }
@@ -99,7 +102,7 @@ public class PreparedSelector {
             prepStmt.setString(2, pattern);
 
             // not supported by Oracle JDBC
-            log.debug(prepStmt);
+            log.debug(prepStmt.toString());
             List<Coder> results = new ArrayList<>();
 
             try (ResultSet rs = prepStmt.executeQuery()) {

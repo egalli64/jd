@@ -5,22 +5,25 @@
  */
 package com.example.jd.s08;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.example.jd.Config;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.example.jd.Config;
+
 /**
  * ResultSet to list of JavaBean
  */
 public class Selector {
-    private static final Logger log = LogManager.getLogger(Selector.class);
+    private static final Logger log = LoggerFactory.getLogger(Selector.class);
 
     private static final String GET_CODER_NAMES = """
             SELECT first_name

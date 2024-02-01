@@ -5,21 +5,27 @@
  */
 package com.example.jd.s10;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import com.example.jd.Config;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Savepoint;
+import java.sql.Statement;
 import java.time.LocalDate;
 
 import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.example.jd.Config;
 
 /**
  * Commit, rollback, savepoint
  */
 public class Transactor {
-    private static final Logger log = LogManager.getLogger(Transactor.class);
+    private static final Logger log = LoggerFactory.getLogger(Transactor.class);
 
     private static final String GET_ALL_CODERS = """
             SELECT employee_id, first_name, last_name, hired

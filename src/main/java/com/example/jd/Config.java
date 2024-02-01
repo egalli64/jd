@@ -13,11 +13,11 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.h2.jdbcx.JdbcDataSource;
 import org.postgresql.ds.PGSimpleDataSource;
-import org.sqlite.SQLiteDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+//import org.sqlite.SQLiteDataSource;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
@@ -27,8 +27,8 @@ import oracle.jdbc.pool.OracleDataSource;
  * JDBC Configuration
  */
 public final class Config {
-    private static final Logger log = LogManager.getLogger(Config.class);
-
+    private static final Logger log = LoggerFactory.getLogger(Config.class);
+    
     /**
      * The following static initializer should not be required
      */
@@ -123,10 +123,12 @@ public final class Config {
             yield hds;
         }
         case SQLITE -> {
-            SQLiteDataSource pgds = new SQLiteDataSource();
-            pgds.setUrl(URL);
-
-            yield pgds;
+            // Disabled for log conflict
+            throw new IllegalStateException();
+//            SQLiteDataSource pgds = new SQLiteDataSource();
+//            pgds.setUrl(URL);
+//
+//            yield pgds;
         }
 
         };

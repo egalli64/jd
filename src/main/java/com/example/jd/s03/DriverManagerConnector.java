@@ -14,14 +14,14 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A Hello JDBC by driver manager
  */
 public class DriverManagerConnector {
-    private static final Logger log = LogManager.getLogger(DriverManagerConnector.class);
+    private static final Logger log = LoggerFactory.getLogger(DriverManagerConnector.class);
 
     /**
      * Connect by driver manager, get and log DB info then terminate
@@ -41,7 +41,7 @@ public class DriverManagerConnector {
 
             System.out.printf("Connected to %s version %s, catalog %s, schema %s", db, version, catalog, schema);
         } catch (SQLException e) {
-            log.fatal("Can't get database info", e);
+            log.error("Can't get database info", e);
             System.out.println("Can't get database info");
         }
     }

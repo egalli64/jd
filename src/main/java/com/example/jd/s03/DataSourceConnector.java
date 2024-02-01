@@ -11,8 +11,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.example.jd.Config;
 
@@ -20,7 +20,7 @@ import com.example.jd.Config;
  * A Hello JDBC by data source
  */
 public class DataSourceConnector {
-    private static final Logger log = LogManager.getLogger(DataSourceConnector.class);
+    private static final Logger log = LoggerFactory.getLogger(DataSourceConnector.class);
 
     /**
      * Connect to the current data source, get and log DB info then terminate
@@ -42,7 +42,7 @@ public class DataSourceConnector {
 
             System.out.printf("Connected to %s version %s, catalog %s, schema %s", db, version, catalog, schema);
         } catch (SQLException e) {
-            log.fatal("Can't get database info", e);
+            log.error("Can't get database info", e);
             System.out.println("Can't get database info");
         }
     }
