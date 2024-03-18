@@ -40,10 +40,11 @@ public class DataSourceConnector {
             String catalog = conn.getCatalog();
             String schema = conn.getSchema();
 
-            System.out.printf("Connected to %s version %s, catalog %s, schema %s", db, version, catalog, schema);
+            System.out.printf("Connected to %s version %s, catalog %s, schema %s\n", db, version, catalog, schema);
         } catch (SQLException e) {
             log.error("Can't get database info", e);
             System.out.println("Can't get database info");
         }
+        System.out.println("... done");
     }
 }
