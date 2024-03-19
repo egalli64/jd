@@ -26,35 +26,35 @@ public class Selector {
     private static final Logger log = LoggerFactory.getLogger(Selector.class);
 
     private static final String GET_CODER_NAMES = """
-            SELECT first_name
+            SELECT e.first_name
             FROM employee e JOIN department d
             USING (department_id)
             WHERE d.name = 'IT'
-            ORDER BY first_name""";
+            ORDER BY e.first_name""";
     private static final String GET_CODERS = """
-            SELECT first_name, last_name, salary
+            SELECT e.first_name, e.last_name, e.salary
             FROM employee e JOIN department d
             USING (department_id)
             WHERE d.name = 'IT'
-            ORDER BY first_name""";
+            ORDER BY e.first_name""";
     private static final String GET_CODERS_BY_SALARY_INT = """
-            SELECT first_name, last_name, salary
+            SELECT e.first_name, e.last_name, e.salary
             FROM employee e JOIN department d
             USING (department_id)
-            WHERE d.name = 'IT' AND salary >= %d
-            ORDER BY salary DESC""";
+            WHERE d.name = 'IT' AND e.salary >= %d
+            ORDER BY e.salary DESC""";
     private static final String GET_CODERS_BY_SALARY_STRING = """
-            SELECT first_name, last_name, salary
+            SELECT e.first_name, e.last_name, e.salary
             FROM employee e LEFT OUTER JOIN department d
             USING (department_id)
-            WHERE d.name = 'IT' AND salary >= %s
-            ORDER BY salary DESC""";
+            WHERE d.name = 'IT' AND e.salary >= %s
+            ORDER BY e.salary DESC""";
     private static final String GET_CODERS_BY_LETTER = """
-            SELECT first_name, last_name, salary
+            SELECT e.first_name, e.last_name, e.salary
             FROM employee e JOIN department d
             USING (department_id)
-            WHERE d.name = 'IT' AND (first_name LIKE '%%%c%%' or last_name LIKE '%%%c%%')
-            ORDER BY salary DESC""";
+            WHERE d.name = 'IT' AND (e.first_name LIKE '%%%c%%' or e.last_name LIKE '%%%c%%')
+            ORDER BY e.salary DESC""";
 
     private DataSource ds;
 
