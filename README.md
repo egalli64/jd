@@ -5,7 +5,7 @@
 
 ## JDBC on
 - H2 2
-- MySQL 8
+- MySQL 9
 - Oracle DB 21c
 - PostgreSQL 14+
 - SQLite 3
