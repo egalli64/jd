@@ -17,6 +17,7 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+// SQLite support disabled for conflict on SLF4J
 //import org.sqlite.SQLiteDataSource;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -28,16 +29,16 @@ import oracle.jdbc.pool.OracleDataSource;
  */
 public final class Config {
     private static final Logger log = LoggerFactory.getLogger(Config.class);
-    
+
     /**
      * The following static initializer should not be required
      */
 //    static {
 //        try {
 //            // Class.forName("org.h2.Driver");
-//            // Class.forName("com.mysql.cj.jdbc.Driver");
+//            Class.forName("com.mysql.cj.jdbc.Driver");
 //            // Class.forName("oracle.jdbc.OracleDriver");
-//            Class.forName("org.postgresql.Driver");
+//            // Class.forName("org.postgresql.Driver");
 //        } catch (ClassNotFoundException cnfe) {
 //            cnfe.printStackTrace();
 //            throw new IllegalStateException("Can't load JDBC driver " + cnfe.getMessage());
@@ -123,7 +124,7 @@ public final class Config {
             yield hds;
         }
         case SQLITE -> {
-            // Disabled for log conflict
+            // Disabled for SLF4J conflict
             throw new IllegalStateException();
 //            SQLiteDataSource pgds = new SQLiteDataSource();
 //            pgds.setUrl(URL);
