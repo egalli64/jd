@@ -44,8 +44,8 @@ public class Remover {
             // !!! DANGER - POSSIBLE SQL INJECTION ATTACK !!!
             // ex: arg -> "Tom' OR name like 'A%"
             String sql = String.format(DELETE_SERVICE_BY_NAME, args[0]);
-            int lines = stmt.executeUpdate(sql);
-            System.out.printf("Delete executed, %d lines affected%n", lines);
+            int count = stmt.executeUpdate(sql);
+            System.out.printf("Delete executed: %d lines affected\n", count);
         } catch (SQLException se) {
             log.error("Can't remove", se);
         }
