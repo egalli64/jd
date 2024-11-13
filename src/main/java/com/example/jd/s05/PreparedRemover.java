@@ -39,15 +39,15 @@ public class PreparedRemover {
         // TODO: check for "strange" characters against SQL injection attack
         String name = args[0];
         // TODO: robustness, try for NumberFormatException
-        int location = Integer.valueOf(args[1]);
+        int locationId = Integer.valueOf(args[1]);
 
-        log.info("Deleting service named <{}>, location <{}>, if exists", name, location);
+        log.info("Deleting service named <{}>, location <{}>, if exists", name, locationId);
 
         DataSource ds = Config.getDataSource();
         try (Connection conn = ds.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(DELETE_SERVICE_BY_NAME)) {
             stmt.setString(1, name);
-            stmt.setInt(2, location);
+            stmt.setInt(2, locationId);
             int lines = stmt.executeUpdate();
             System.out.printf("Delete executed, %d lines affected%n", lines);
         } catch (SQLException se) {
