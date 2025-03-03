@@ -11,4 +11,4 @@
 - SQLite 3
 
 ## Database setup
-- See [hron](https://github.com/egalli64/hron)
+- See [rdb-intro](https://github.com/egalli64/rdb-intro)
